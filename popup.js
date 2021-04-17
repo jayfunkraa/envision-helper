@@ -1,55 +1,56 @@
+var self = this;
 chrome.runtime.sendMessage({ message: "runContentScript" });
 document.getElementById('info-table').innerHTML = '<tr colspan=2><td>No data available</td></tr>';
 
-var emailBody = '';
-var url = null;
+self.emailBody = '';
+self.url = null;
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    url = tabs[0].url;
+    self.url = tabs[0].url;
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.message == 'popupInfo') {
         if (request.details.workflowType) {
-            let table = document.getElementById('info-table');
-            table.innerHTML = '';
+            self.table = document.getElementById('info-table');
+            self.table.innerHTML = '';
 
-            let header = document.createElement('thead');
-            header.innerHTML = '<tr><th colspan="2">Configuration Information</th></tr>';
-            header.className = 'thead-light';
-            table.appendChild(header);
+            self.header = document.createElement('thead');
+            self.header.innerHTML = '<tr><th colspan="2">Configuration Information</th></tr>';
+            self.header.className = 'thead-light';
+            self.table.appendChild(header);
 
-            let body = document.createElement('tbody')
-                , row1 = document.createElement('tr')
-                , row2 = document.createElement('tr')
-                , row3 = document.createElement('tr')
-                , row4 = document.createElement('tr')
-                , row5 = document.createElement('tr')
-                , row6 = document.createElement('tr')
-                , row7 = document.createElement('tr');
+            self.body = document.createElement('tbody')
+                , self.row1 = document.createElement('tr')
+                , self.row2 = document.createElement('tr')
+                , self.row3 = document.createElement('tr')
+                , self.row4 = document.createElement('tr')
+                , self.row5 = document.createElement('tr')
+                , self.row6 = document.createElement('tr')
+                , self.row7 = document.createElement('tr');
 
-            row1.innerHTML = '<th scope="row">Record ID</th><td>' + request.details.recordId + '</td>';
-            row2.innerHTML = '<th scope="row">Workflow Type</th><td>' + request.details.workflowType + '</td>';
-            row3.innerHTML = '<th scope="row">Workflow Code</th><td>' + request.details.workflowCode + '</td>';
-            row4.innerHTML = '<th scope="row">Workflow Title</th><td>' + request.details.workflowTitle + '</td>';
-            row5.innerHTML = '<th scope="row">Component Code</th><td>' + request.details.componentCode + '</td>';
-            row6.innerHTML = '<th scope="row">Component Title</th><td>' + request.details.componentTitle + '</td>';
-            row7.innerHTML = '<th scope="row">Edit Level Locking</th><td>' + (request.details.editLevelLocking && '<i class="fas fa-check"></i>') + '</td>';
+            self.row1.innerHTML = '<th scope="row">Record ID</th><td>' + request.details.recordId + '</td>';
+            self.row2.innerHTML = '<th scope="row">Workflow Type</th><td>' + request.details.workflowType + '</td>';
+            self.row3.innerHTML = '<th scope="row">Workflow Code</th><td>' + request.details.workflowCode + '</td>';
+            self.row4.innerHTML = '<th scope="row">Workflow Title</th><td>' + request.details.workflowTitle + '</td>';
+            self.row5.innerHTML = '<th scope="row">Component Code</th><td>' + request.details.componentCode + '</td>';
+            self.row6.innerHTML = '<th scope="row">Component Title</th><td>' + request.details.componentTitle + '</td>';
+            self.row7.innerHTML = '<th scope="row">Edit Level Locking</th><td>' + (request.details.editLevelLocking && '<i class="fas fa-check"></i>') + '</td>';
 
-            body.appendChild(row1);
-            body.appendChild(row2);
-            body.appendChild(row3);
-            body.appendChild(row4);
-            body.appendChild(row5);
-            body.appendChild(row6);
-            body.appendChild(row7);
+            self.body.appendChild(row1);
+            self.body.appendChild(row2);
+            self.body.appendChild(row3);
+            self.body.appendChild(row4);
+            self.body.appendChild(row5);
+            self.body.appendChild(row6);
+            self.body.appendChild(row7);
 
-            table.appendChild(body);
+            self.table.appendChild(body);
         }
 
         if (request.details.includeInEmail) {
             if (request.details.workflowType) {
-                emailBody = '%0A%0D%0A%0D%0A%0D------------------------------' +
+                self.emailBody = '%0A%0D%0A%0D%0A%0D------------------------------' +
                     '%0A%0DURL: ' + url +
                     '%0A%0DData Source: ' + request.details.dataSource +
                     '%0A%0DDatabase: ' + request.details.database +
@@ -67,7 +68,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                     '%0A%0DComponent Title: ' + request.details.componentTitle +
                     '%0A%0D------------------------------'
             } else {
-                emailBody = '%0A%0D%0A%0D%0A%0D------------------------------' +
+                self.emailBody = '%0A%0D%0A%0D%0A%0D------------------------------' +
                     '%0A%0DURL: ' + url +
                     '%0A%0DData Source: ' + request.details.dataSource +
                     '%0A%0DDatabase: ' + request.details.database +
@@ -84,5 +85,5 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 document.getElementById('email-support').addEventListener('click', function () {
-    window.open('mailto:support@rusada.com?body=' + emailBody);
+    window.open('mailto:support@rusada.com?body=' + self.emailBody);
 });
