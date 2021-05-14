@@ -1,7 +1,13 @@
 var self = this;
 chrome.runtime.sendMessage({ message: "runContentScript" });
-document.getElementById('info-table').innerHTML = '<tr colspan=2><td>Loading...</td></tr>';
 document.getElementById('email-support').style.display = "none";
+self.info = document.getElementById('info');
+self.info.innerHTML = 'Getting configuration data...'
+self.info.style.display = 'inline';
+self.header = document.getElementById('header');
+self.header.innerHTML = '';
+self.header.style.display = 'none';
+
 
 self.emailBody = '';
 self.url = null;
@@ -12,25 +18,24 @@ chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.message == 'popupInfo') {
+        self.info.style.display = 'none';
         if (request.details.workflowType) {
             self.table = document.getElementById('info-table');
             self.table.innerHTML = '';
 
-            self.header = document.createElement('thead');
-            self.header.innerHTML = '<tr><th colspan="2">Configuration Information</th></tr>';
-            self.header.className = 'thead-light';
-            self.table.appendChild(header);
+            self.header.innerHTML = '<div class="row"><div class="col-lg-8"><span>Configuration Information</span></div></div>'
+            self.header.style.display = 'flex';
 
             self.body = document.createElement('tbody'), self.row1 = document.createElement('tr'), self.row2 = document.createElement('tr'), self.row3 = document.createElement('tr'), self.row4 = document.createElement('tr'), self.row5 = document.createElement('tr'), self.row6 = document.createElement('tr'), self.row7 = document.createElement('tr'), self.row8 = document.createElement('tr');
 
-            self.row1.innerHTML = '<th scope="row">Record ID</th><td>' + request.details.recordId + '</td>';
-            self.row2.innerHTML = '<th scope="row">Workflow Type</th><td>' + request.details.workflowType + '</td>';
-            self.row3.innerHTML = '<th scope="row">Workflow Code</th><td>' + request.details.workflowCode + '</td>';
-            self.row4.innerHTML = '<th scope="row">Workflow Title</th><td>' + request.details.workflowTitle + '</td>';
-            self.row5.innerHTML = '<th scope="row">Component Code</th><td>' + request.details.componentCode + '</td>';
-            self.row6.innerHTML = '<th scope="row">Component Title</th><td>' + request.details.componentTitle + '</td>';
-            self.row7.innerHTML = '<th scope="row">Component Description</th><td>' + request.details.componentDescription + '</td>';
-            self.row8.innerHTML = '<th scope="row">Edit Level Locking</th><td>' + (request.details.editLevelLocking ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>') + '</td>';
+            self.row1.innerHTML = '<td><span class="RusadaLabel">Record ID</span></td><td><span class="RusadaDataLabel">' + request.details.recordId + '</span></td>';
+            self.row2.innerHTML = '<td><span class="RusadaLabel">Workflow Type</span></td><td><span class="RusadaDataLabel">' + request.details.workflowType + '</span></td>';
+            self.row3.innerHTML = '<td><span class="RusadaLabel">Workflow Code</span></td><td><span class="RusadaDataLabel">' + request.details.workflowCode + '</span></td>';
+            self.row4.innerHTML = '<td><span class="RusadaLabel">Workflow Title</span></td><td><span class="RusadaDataLabel">' + request.details.workflowTitle + '</span></td>';
+            self.row5.innerHTML = '<td><span class="RusadaLabel">Component Code</span></td><td><span class="RusadaDataLabel">' + request.details.componentCode + '</span></td>';
+            self.row6.innerHTML = '<td><span class="RusadaLabel">Component Title</span></td><td><span class="RusadaDataLabel">' + request.details.componentTitle + '</span></td>';
+            self.row7.innerHTML = '<td><span class="RusadaLabel">Component Description</span></td><td><span class="RusadaDataLabel">' + request.details.componentDescription + '</span></td>';
+            self.row8.innerHTML = '<td><span class="RusadaLabel">Edit Level Locking</span></td><td><span class="RusadaDataLabel">' + (request.details.editLevelLocking ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>') + '</td>';
 
             self.body.appendChild(row1);
             self.body.appendChild(row2);
@@ -43,7 +48,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
             self.table.appendChild(body);
         } else {
-            document.getElementById('info-table').innerHTML = '<tr colspan=2><td>No Data Available</td></tr>';
+            self.info.innerHTML = 'No Data Available';
+            self.info.style.display = 'inline';
         }
 
         if (request.details.includeInEmail) {

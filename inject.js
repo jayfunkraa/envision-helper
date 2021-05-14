@@ -26,7 +26,7 @@ if (Envision.Utilities.GetCurrentWorkFlow() && Envision.Utilities.GetCurrentWork
     Envision.Ajax.get(Envision.AjaxConst._GET_ROLE_COMPONENT_LIST, {
             uRole_ID: Envision.UserDetails.uRole_ID(),
             uMenu_ID: Envision.UserDetails.uMenu_ID(),
-            wWorkFlow_ID: Envision.Utilities.GetCurrentWorkFlow().WorkFlow_ID
+            wWorkFlow_ID: workflow.WorkFlow_ID
         },
         // success
         function(data) {
@@ -41,8 +41,11 @@ if (Envision.Utilities.GetCurrentWorkFlow() && Envision.Utilities.GetCurrentWork
                 }
             });
             if (dtArray.length > 0) {
-                componentDescription = dtArray.find(item => item.ID === Envision.Utilities.GetCurrentWorkFlowComponentID()).Description;
+                var componentInfo = dtArray.find(item => item.ID === component.ComponentID());
                 hideNotification();
+                if (componentInfo) {
+                    componentDescription = componentInfo.Description;
+                }
             }
 
             document.dispatchEvent(new CustomEvent('configValuesSent', {
