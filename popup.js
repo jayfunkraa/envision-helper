@@ -7,7 +7,22 @@ self.info.style.display = 'inline';
 self.header = document.getElementById('header');
 self.header.innerHTML = '';
 self.header.style.display = 'none';
+self.updateInfo = document.getElementById('update-info');
+self.updateInfo.style.display = 'none';
 
+chrome.storage.sync.get(['envisionHelperShowUpdateInfo'], function(result) {
+    console.log('show update info:', result.envisionHelperShowUpdateInfo);
+
+    if (result.envisionHelperShowUpdateInfo) {
+        document.getElementById('update-title').innerHTML = '<strong>Updated to version ' + chrome.runtime.getManifest().version + '</strong>';
+        document.getElementById('update-body').innerHTML = 'New features:<br/><ul><li>UI changes</li><li>Component Description added</li></ul>';
+        document.getElementById('update-dismiss').addEventListener('click', function() {
+            chrome.storage.sync.set({ 'envisionHelperShowUpdateInfo': false });
+        });
+        self.updateInfo.style.display = 'block';
+
+    }
+})
 
 self.emailBody = '';
 self.url = null;

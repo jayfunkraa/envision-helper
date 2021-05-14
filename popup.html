@@ -4,12 +4,16 @@
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/all.min.css">
     <link rel="stylesheet" href="rusadatable.css">
-    <!--<link rel="stylesheet" href="custom.css">-->
     <link rel="stylesheet" href="popup.css">
 </head>
 
 <body style="min-width: 380px;">
     <div id="main" class="main container">
+        <div id="update-info" class="alert alert-primary alert-dismissable fade show">
+            <button id="update-dismiss" class="close" data-dismiss="alert">&times;</button>
+            <h5 id="update-title"></h5>
+            <p id="update-body"></p>
+        </div>
         <div id="info" class="info"></div>
         <div id="header" class="header"></div>
         <div class="container-fluid">
@@ -22,6 +26,8 @@
         </div>
     </div>
     <script src="popup.js"></script>
+    <script src="vendor/jquery-3.6.0.min.js"></script>
+    <script src="vendor/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

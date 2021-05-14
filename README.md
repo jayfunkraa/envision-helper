@@ -10,6 +10,9 @@ The extension also allows you to email Rusada support with some very useful info
 
 ## Change Log
 
+* Version 1.3
+  * Added Component Description to configuration information.
+  * Updated UI to closely match Envision
 * Version 1.2
   * Moved functionality from a charm within Envision to the extension itself. Now you just need to click the Rusada logo in your browser to view the same configuration information.
   * Removed the scary "this extension wants access to all of your prized posessions" permission. Nothing has changed in the way the extension works, I just learned the proper way of checking the URL you are currently viewing. This is all the permission was used for before. The extension only needs this to check you are on an Envision page.
