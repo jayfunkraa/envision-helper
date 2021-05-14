@@ -3,14 +3,23 @@
 <head>
     <link rel="stylesheet" href="vendor/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/all.min.css">
+    <link rel="stylesheet" href="rusadatable.css">
+    <!--<link rel="stylesheet" href="custom.css">-->
+    <link rel="stylesheet" href="popup.css">
 </head>
 
 <body style="min-width: 380px;">
-    <div>
-        <table id="info-table" class="table"></table>
-    </div>
-    <div class="text-right p-2">
-        <button id="email-support" class="btn btn-sm btn-secondary">Email Support</button>
+    <div id="main" class="main container">
+        <div id="info" class="info"></div>
+        <div id="header" class="header"></div>
+        <div class="container-fluid">
+            <div>
+                <table id="info-table"></table>
+            </div>
+        </div>
+        <div class="email-button">
+            <button id="email-support" class="btn btn-primary"><i class="far fa-envelope pl-1"></i><span style="font-size: 12px; padding: 12px 6px;">Email Support</span></button>
+        </div>
     </div>
     <script src="popup.js"></script>
 </body>
