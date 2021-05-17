@@ -1,6 +1,6 @@
 @font-face {
     font-family: opensans-regular-webfont;
-    src: url(vendor/fonts/opensans-regular-webfont.ttf) format('truetype'), url(vendor/fonts/opensans-regular-webfont.woff2) format('woff2'), url(vendor/fonts/opensans-regular-webfont.woff) format('woff')
+    src: url(/vendor/fonts/opensans-regular-webfont.ttf) format('truetype'), url(/vendor/fonts/opensans-regular-webfont.woff2) format('woff2'), url(/vendor/fonts/opensans-regular-webfont.woff) format('woff')
 }
 
 body {
@@ -13,18 +13,23 @@ body {
     border: none;
 }
 
+.btn-primary i {
+    font-size: 12px;
+}
+
 .btn-primary:hover {
     background-color: #ed6030;
 }
 
 .RusadaLabel {
     font-size: 12px;
-    font-weight: bold;
-    color: #587695;
+    /* font-weight: bold; */
+    color: #006487;
 }
 
 .RusadaDataLabel {
-    font-size: 14px;
+    font-size: 12px;
+    color: #333;
 }
 
 .main {
