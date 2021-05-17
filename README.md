@@ -6,7 +6,7 @@ This extension will give you access to the configuration information you would n
 
 The extension also allows you to email Rusada support with some very useful information pre-populated in the body of your email. This should help support to understand your problem much quicker. Please make sure you click the "Email Support" button from the screen you are having problems with - the extension only includes information from the current screen.
 
-![screenshot](images/screenshot.png)
+![screenshot](images/screenshot_1_3.png)
 
 ## Change Log
 
